@@ -6,7 +6,7 @@ import java.util.Map;
 public class StrategyCommand implements IStrategyCommand {
     private final Map<String, IStrategy> strategy = new HashMap<>();
 
-    private void setStrategy() {
+    private void setStrategies() {
         this.strategy.put("table", new CalculateTablePrice());
     }
 
@@ -17,7 +17,7 @@ public class StrategyCommand implements IStrategyCommand {
 
     @Override
     public String executeStrategy(Map<String, Object> data) {
-        setStrategy();
+        setStrategies();
         return this.strategy.get(getStrategyName(data)).executeStrategy(data);
     }
 

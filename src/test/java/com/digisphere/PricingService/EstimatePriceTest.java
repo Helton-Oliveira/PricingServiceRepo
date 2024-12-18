@@ -8,6 +8,7 @@ import com.digisphere.PricingService.infra.IRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +27,7 @@ public class EstimatePriceTest {
         data.put("customerId", "12345");
         data.put("itemType", "furniture");
         data.put("material", "lightWood");
+        data.put("deliveryDate", "2024-12-27");
         data.put("itemDetails",
                 Map.of(
                         "name", "table",
@@ -46,5 +48,6 @@ public class EstimatePriceTest {
 
         assertThat(price).isNotNull();
         assertThat(price).isNotBlank();
+        assertThat(price).isEqualTo("728.4");
     }
 }
