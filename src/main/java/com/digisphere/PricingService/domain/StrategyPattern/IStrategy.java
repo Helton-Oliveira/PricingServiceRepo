@@ -1,7 +1,7 @@
 package com.digisphere.PricingService.domain.StrategyPattern;
 
-import java.util.Map;
+import com.digisphere.PricingService.domain.Agregate.FurnitureOrderAggregate;
 
 public interface IStrategy {
-    String executeStrategy(Map<String, Object> data);
+    String executeStrategy(FurnitureOrderAggregate data);
 }

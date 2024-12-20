@@ -1,5 +1,7 @@
 package com.digisphere.PricingService.domain.StrategyPattern;
 
+import com.digisphere.PricingService.domain.Agregate.FurnitureOrderAggregate;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,15 +12,10 @@ public class StrategyCommand implements IStrategyCommand {
         this.strategy.put("table", new CalculateTablePrice());
     }
 
-    private String getStrategyName(Map<String, Object> data) {
-        Map<String, Object> itemDetails = (Map<String, Object>) data.get("itemDetails");
-       return itemDetails.get("name").toString();
-    }
-
     @Override
-    public String executeStrategy(Map<String, Object> data) {
+    public String executeStrategy(FurnitureOrderAggregate data) {
         setStrategies();
-        return this.strategy.get(getStrategyName(data)).executeStrategy(data);
+        return this.strategy.get(data.getItemDetails().getName()).executeStrategy(data);
     }
 
 }
