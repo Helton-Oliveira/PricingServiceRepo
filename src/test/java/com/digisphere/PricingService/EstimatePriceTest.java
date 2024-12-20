@@ -1,11 +1,12 @@
 package com.digisphere.PricingService;
 
-import com.digisphere.PricingService.domain.Agregate.FurnitureOrderAggregate;
-import com.digisphere.PricingService.domain.StrategyPattern.IStrategyCommand;
-import com.digisphere.PricingService.domain.StrategyPattern.StrategyCommand;
+import com.digisphere.PricingService.adapter.adapterPattern.Adapter;
+import com.digisphere.PricingService.adapter.adapterPattern.IAdapter;
+import com.digisphere.PricingService.adapter.modules.factory.FurnitureModuleFactory;
+import com.digisphere.PricingService.adapter.modules.factory.IModuleFactory;
+import com.digisphere.PricingService.adapter.modules.products.IPricingModule;
 import com.digisphere.PricingService.application.useCase.EstimateFurniturePrice;
-import com.digisphere.PricingService.infra.FurnitureMaterialRepositoryInMemory;
-import com.digisphere.PricingService.infra.IRepository;
+import com.digisphere.PricingService.application.useCase.IUseCase;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -19,8 +20,7 @@ public class EstimatePriceTest {
     @Test
     @DisplayName("Deve estimar o preco de uma mesa")
     void estimateTablePrice() {
-        IRepository repository = new FurnitureMaterialRepositoryInMemory();
-        IStrategyCommand strategy = new StrategyCommand();
+       ;
         Map<String, Object> data = new HashMap<>();
 
         data.put("customerId", "12345");
@@ -41,10 +41,9 @@ public class EstimatePriceTest {
                 "numberOfShelves", 0,
                 "additionalFeatures", "acabamento em verniz, bordas arredondadas"
         ));
-
-        var aggregate = new FurnitureOrderAggregate(data);
-        var estimate = new EstimateFurniturePrice(repository, strategy, aggregate);
-        String price = estimate.execute();
+        IPricingModule module = new FurnitureModuleFactory().createModule(data);
+        IUseCase estimate = new EstimateFurniturePrice(module);
+        var price = estimate.execute();
 
         assertThat(price).isNotNull();
         assertThat(price).isNotBlank();
