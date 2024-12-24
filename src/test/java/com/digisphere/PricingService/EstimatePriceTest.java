@@ -1,7 +1,7 @@
 package com.digisphere.PricingService;
 
-import com.digisphere.PricingService.application.domain.IPriceCalculator;
-import com.digisphere.PricingService.application.domain.PriceCalculator;
+import com.digisphere.PricingService.application.domain.templateMethod.IPriceCalculator;
+import com.digisphere.PricingService.application.domain.templateMethod.PriceCalculator;
 import com.digisphere.PricingService.application.useCase.CalculatePrice;
 import com.digisphere.PricingService.infra.FurnitureMaterialRepositoryInMemory;
 import com.digisphere.PricingService.infra.IRepository;

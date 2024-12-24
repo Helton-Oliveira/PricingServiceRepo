@@ -1,6 +1,6 @@
 package com.digisphere.PricingService.application.useCase;
 
-import com.digisphere.PricingService.application.domain.IPriceCalculator;
+import com.digisphere.PricingService.application.domain.templateMethod.IPriceCalculator;
 import com.digisphere.PricingService.infra.IRepository;
 
 import java.util.Map;

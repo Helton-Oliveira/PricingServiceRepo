@@ -1,4 +1,4 @@
-package com.digisphere.PricingService.application.domain;
+package com.digisphere.PricingService.application.domain.especificMethods;
 
 public class CalculateTablePrice implements ICalculator {
 

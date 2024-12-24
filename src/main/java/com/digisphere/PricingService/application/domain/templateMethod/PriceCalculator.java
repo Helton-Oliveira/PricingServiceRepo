@@ -1,4 +1,7 @@
-package com.digisphere.PricingService.application.domain;
+package com.digisphere.PricingService.application.domain.templateMethod;
+
+import com.digisphere.PricingService.application.domain.especificMethods.CalculateTablePrice;
+import com.digisphere.PricingService.application.domain.especificMethods.ICalculator;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
