@@ -1,17 +1,16 @@
 package com.digisphere.PricingService;
 
-import com.digisphere.PricingService.adapter.adapterPattern.Adapter;
-import com.digisphere.PricingService.adapter.adapterPattern.IAdapter;
-import com.digisphere.PricingService.adapter.modules.factory.FurnitureModuleFactory;
-import com.digisphere.PricingService.adapter.modules.factory.IModuleFactory;
-import com.digisphere.PricingService.adapter.modules.products.IPricingModule;
-import com.digisphere.PricingService.application.useCase.EstimateFurniturePrice;
-import com.digisphere.PricingService.application.useCase.IUseCase;
+import com.digisphere.PricingService.application.domain.IPriceCalculator;
+import com.digisphere.PricingService.application.domain.PriceCalculator;
+import com.digisphere.PricingService.application.useCase.CalculatePrice;
+import com.digisphere.PricingService.infra.FurnitureMaterialRepositoryInMemory;
+import com.digisphere.PricingService.infra.IRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -20,33 +19,23 @@ public class EstimatePriceTest {
     @Test
     @DisplayName("Deve estimar o preco de uma mesa")
     void estimateTablePrice() {
-       ;
-        Map<String, Object> data = new HashMap<>();
+        IPriceCalculator priceCalculator = new PriceCalculator();
+        IRepository repository = new FurnitureMaterialRepositoryInMemory();
+        var calculator = new CalculatePrice(priceCalculator, repository);
+        Map<String, String> data = new HashMap<>();
 
-        data.put("customerId", "12345");
-        data.put("itemType", "furniture");
+        data.put("costumerId", UUID.randomUUID().toString());
+        data.put("itemCategory", "furniture");
+        data.put("itemType", "table");
         data.put("material", "lightWood");
-        data.put("deliveryDate", "2024-12-27");
-        data.put("itemDetails",
-                Map.of(
-                        "name", "table",
-                        "dimensions", Map.of(
-                                "length", 180.0,
-                                "width", 90.0,
-                                "height", 75.0)
-                ));
-        data.put("furnitureDetails", Map.of(
-                "hasTop", true,
-                "hasLegs", true,
-                "numberOfShelves", 0,
-                "additionalFeatures", "acabamento em verniz, bordas arredondadas"
-        ));
-        IPricingModule module = new FurnitureModuleFactory().createModule(data);
-        IUseCase estimate = new EstimateFurniturePrice(module);
-        var price = estimate.execute();
+        data.put("length", "180.0");
+        data.put("width", "90.0");
+        data.put("height", "75.0");
+        data.put("deliveryDate", "2025-01-01");
+        data.put("additionalFeatures",  "iron feet, rounded corners");
 
-        assertThat(price).isNotNull();
-        assertThat(price).isNotBlank();
-        assertThat(price).isEqualTo("728.4");
+        String price = calculator.execute(data);
+
+        assertThat(price).isEqualTo("R$ 1021,95");
     }
 }
