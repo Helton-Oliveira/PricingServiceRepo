@@ -8,7 +8,12 @@ public class CalculateTablePrice implements ICalculator {
     }
 
     @Override
-    public Double pricePerHourWork() {
+    public Double hourlyRate() {
         return 50.0;
+    }
+
+    @Override
+    public Integer estimatedHours() {
+        return 2;
     }
 }

@@ -2,20 +2,20 @@ package com.digisphere.PricingService.application.domain.templateMethod;
 
 import com.digisphere.PricingService.application.domain.especificMethods.CalculateTablePrice;
 import com.digisphere.PricingService.application.domain.especificMethods.ICalculator;
+import com.digisphere.PricingService.application.utils.DeliveryPricingCalculator;
 import com.digisphere.PricingService.application.utils.simpleFactory.SizeCalculatorFactory;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.Map;
 
-public class PriceCalculator implements IPriceCalculator{
+public class PriceCalculator implements IPriceCalculator {
     private ICalculator calculator;
 
     @Override
     public Double calculate(Map<String, String> data) {
         setCalculator(data.get("itemType"));
         Double profitMargin = calculator.profitMargin();
-        Double pricePerHourWork = calculator.pricePerHourWork();
+        Double pricePerHourWork = calculator.hourlyRate();
         double total =
                 calculatePriceMaterial(data) +
                 calculatePriceOfAdditional(data.get("additionalFeatures")) +
@@ -33,9 +33,8 @@ public class PriceCalculator implements IPriceCalculator{
         return additional.split(",").length * 50;
     }
 
-    private double calculateLabor(double pricePerHour, LocalDate deliveryDate) {
-        long deliveryPeriodInDays = ChronoUnit.DAYS.between(deliveryDate, LocalDate.now());
-        return Math.abs(deliveryPeriodInDays) * pricePerHour;
+    private double calculateLabor(double hourlyRate, LocalDate deliveryDate) {
+        return DeliveryPricingCalculator.calculateByDeliveryTime(deliveryDate, hourlyRate, calculator.estimatedHours());
     }
 
     private void setCalculator(String calculator) {
