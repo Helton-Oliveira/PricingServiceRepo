@@ -18,7 +18,7 @@ public class CalculatePrice implements IUseCase {
     public String execute(Map<String, String> req) {
         Double pricePerMeter = repository.get(req.get("material"));
         req.put("pricePerMeter" , String.valueOf(pricePerMeter));
-        String price =  String.valueOf(priceCalculator.calculate(req));
+        String price =  String.valueOf(Math.floor(priceCalculator.calculate(req)));
         return "R$ " + price.replace(".", ",");
     }
 }

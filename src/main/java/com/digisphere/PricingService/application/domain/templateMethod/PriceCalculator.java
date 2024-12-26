@@ -2,7 +2,7 @@ package com.digisphere.PricingService.application.domain.templateMethod;
 
 import com.digisphere.PricingService.application.domain.especificMethods.CalculateTablePrice;
 import com.digisphere.PricingService.application.domain.especificMethods.ICalculator;
-import com.digisphere.PricingService.application.utils.DeliveryPricingCalculator;
+import com.digisphere.PricingService.application.utils.deliveryPrincingCalculator.DeliveryPricingCalculator;
 import com.digisphere.PricingService.application.utils.simpleFactory.SizeCalculatorFactory;
 
 import java.time.LocalDate;

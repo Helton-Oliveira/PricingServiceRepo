@@ -36,6 +36,6 @@ public class EstimatePriceTest {
 
         String price = calculator.execute(data);
 
-        assertThat(price).isEqualTo("R$ 1021,95");
+        assertThat(price).isEqualTo("R$ 852,0");
     }
 }

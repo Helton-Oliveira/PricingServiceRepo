@@ -1,4 +1,4 @@
-package com.digisphere.PricingService.application.utils;
+package com.digisphere.PricingService.application.utils.deliveryPrincingCalculator;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
