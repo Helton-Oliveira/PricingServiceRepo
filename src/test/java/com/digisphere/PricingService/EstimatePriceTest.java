@@ -31,7 +31,7 @@ public class EstimatePriceTest {
         data.put("length", "180.0");
         data.put("width", "90.0");
         data.put("height", "75.0");
-        data.put("deliveryDate", "2025-01-01");
+        data.put("deliveryDate", "2025-01-04");
         data.put("additionalFeatures",  "iron feet, rounded corners");
 
         String price = calculator.execute(data);

@@ -1,4 +1,4 @@
-package com.digisphere.PricingService.application.domain;
+package com.digisphere.PricingService.application.domain.templateMethod;
 
 import java.util.Map;
 
